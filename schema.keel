@@ -1,0 +1,20 @@
+model Package {
+    fields {
+        name Text
+        isDelivered Boolean @default(false)
+    }
+    actions {
+        create createPackage() with (name)
+        update deliverPackageAction(id) {
+            @set(package.isDelivered = true)
+        }
+        update deliverPackageFunc(id) @function
+        update deliverPackage2(id) @function
+        get getPackage(id)
+        write doThings(count: Number, name: Text) returns (Any) {
+            @permission(expression: true)
+        }
+    }
+
+    @permission(expression: true, actions:[create, update, get])
+}
